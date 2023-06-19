@@ -1,3 +1,3 @@
 export class Square {
-  constructor(public name: string) {}
+  constructor(public clicked: boolean) {}
 }

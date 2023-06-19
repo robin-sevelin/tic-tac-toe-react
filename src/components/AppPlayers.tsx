@@ -1,3 +1,38 @@
-export const AppPlayers = () => {
-  return <></>;
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { Player } from '../models/Player';
+
+interface IPlayerProps {
+  players: Player[];
+  onAddPlayer: (player: string) => void;
+}
+
+export const AppPlayers = ({ players, onAddPlayer }: IPlayerProps) => {
+  const [userInput, setUserInput] = useState('');
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onAddPlayer(userInput);
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setUserInput(e.target.value);
+  };
+  return (
+    <>
+      {players.length === 0 && (
+        <form onSubmit={handleSubmit}>
+          <label htmlFor='input'>Player ✗ name</label>
+          <input type='text' id='input' onChange={handleChange} />
+          <button>Submit</button>
+        </form>
+      )}
+      {players.length === 1 && (
+        <form onSubmit={handleSubmit}>
+          <label htmlFor='input'>Player 0 name</label>
+          <input type='text' id='input' onChange={handleChange} />
+          <button>Submit</button>
+        </form>
+      )}
+    </>
+  );
 };

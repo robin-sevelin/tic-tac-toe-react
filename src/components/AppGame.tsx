@@ -1,7 +1,16 @@
-import { useState } from 'react';
-import { Game } from '../models/Game';
+import { AppSquare } from './AppSquare';
 
-export const AppGame = () => {
-  const [game, setGame] = useState<Game>();
-  return <></>;
+interface ISquareProps {
+  squares: string[];
+}
+
+export const AppGame = ({ squares }: ISquareProps) => {
+  const tagSquare = () => {
+    console.log('hello');
+  };
+  return (
+    <>
+      <AppSquare squares={squares} onTagSquare={tagSquare} />
+    </>
+  );
 };
