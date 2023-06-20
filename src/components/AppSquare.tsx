@@ -7,16 +7,16 @@ export const AppSquare = ({ squares, onTagSquare }: SquareProps) => {
   const handleClick = (square: string) => {
     onTagSquare(square);
   };
-  const html = squares.map((square, index) => {
+  const html = squares.map((square, index) => (
     <div
+      className='square'
       onClick={() => {
         handleClick(square);
       }}
       key={index}
     >
-      {square}hej
-    </div>;
-  });
-
-  return <>{html}</>;
+      {square}
+    </div>
+  ));
+  return <div className='board'> {html}</div>;
 };

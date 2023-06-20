@@ -17,10 +17,20 @@ export const AppMain = () => {
     }));
   };
 
+  const endSession = () => {
+    setGame((prevGame) => ({
+      ...prevGame,
+      players: [],
+    }));
+  };
+  console.log(game);
+
   return (
     <main>
-      <AppGame squares={game.squares} />
       <AppPlayers onAddPlayer={addPlayer} players={game.players} />
+      {game.players.length === 2 && (
+        <AppGame onEndSession={endSession} squares={game.squares} />
+      )}
     </main>
   );
 };
