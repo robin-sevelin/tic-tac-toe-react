@@ -5,11 +5,12 @@ import { AppSquare } from './AppSquare';
 interface IGameProps {
   squares: string[];
   onEndSession: (players: Player[]) => void;
+  onTagSquare: (square: string, index: number) => void;
 }
 
-export const AppGame = ({ squares, onEndSession }: IGameProps) => {
-  const tagSquare = () => {
-    console.log('hello');
+export const AppGame = ({ squares, onEndSession, onTagSquare }: IGameProps) => {
+  const tagSquare = (square: string, index: number) => {
+    onTagSquare(square, index);
   };
 
   const endSession = (players: Player[]) => {

@@ -25,11 +25,19 @@ export const AppMain = () => {
   };
   console.log(game);
 
+  const tagSquare = (square: string, index: number) => {
+    console.log('you pressed', index);
+  };
+
   return (
     <main>
       <AppPlayers onAddPlayer={addPlayer} players={game.players} />
       {game.players.length === 2 && (
-        <AppGame onEndSession={endSession} squares={game.squares} />
+        <AppGame
+          onEndSession={endSession}
+          squares={game.squares}
+          onTagSquare={tagSquare}
+        />
       )}
     </main>
   );

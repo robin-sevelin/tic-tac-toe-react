@@ -72,6 +72,10 @@ button:focus-visible {
   width: 100px;
   height: 100px;
   outline: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .square:hover {
