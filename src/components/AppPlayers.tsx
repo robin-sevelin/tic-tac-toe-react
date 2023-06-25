@@ -11,7 +11,9 @@ export const AppPlayers = ({ players, onAddPlayer }: IPlayerProps) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     onAddPlayer(userInput);
+    setUserInput('');
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +30,7 @@ export const AppPlayers = ({ players, onAddPlayer }: IPlayerProps) => {
       )}
       {players.length === 1 && (
         <form onSubmit={handleSubmit}>
-          <label htmlFor='input'>Player 0 name</label>
+          <label htmlFor='input'>Player ⭕️ name</label>
           <input type='text' id='input' onChange={handleChange} />
           <button disabled={userInput === ''}>Submit</button>
         </form>
