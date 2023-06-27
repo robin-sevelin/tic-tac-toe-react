@@ -20,7 +20,7 @@ export const AppPlayers = ({ players, onAddPlayer }: IPlayerProps) => {
     setUserInput(e.target.value);
   };
   return (
-    <>
+    <div className='form-container'>
       {players.length === 0 && (
         <form onSubmit={handleSubmit}>
           <label htmlFor='input'>Player ✗ name</label>
@@ -35,6 +35,6 @@ export const AppPlayers = ({ players, onAddPlayer }: IPlayerProps) => {
           <button disabled={userInput === ''}>Submit</button>
         </form>
       )}
-    </>
+    </div>
   );
 };

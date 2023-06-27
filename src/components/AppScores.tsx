@@ -10,11 +10,10 @@ export const AppScores = ({ players }: IGameProps) => {
       {player.name} {player.points} points
     </div>
   ));
-  console.log(players);
 
   return (
     <div className='scores'>
-      <h2>Here are the current scores</h2>
+      <h3>Here are the current scores</h3>
       {html}
     </div>
   );

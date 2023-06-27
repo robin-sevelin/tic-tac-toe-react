@@ -1,24 +1,34 @@
-import { useState } from 'react';
 import { Game } from '../models/Game';
 import { AppPlayers } from './AppPlayers';
 import { AppGame } from './AppGame';
 import { Player } from '../models/Player';
+import { useEffect, useState } from 'react';
 
 export const AppMain = () => {
   const [game, setGame] = useState<Game>(
-    new Game([], ['', '', '', '', '', '', '', '', ''], '✗', false)
+    new Game([], ['', '', '', '', '', '', '', '', ''], '✗', false, false)
   );
+
+  useEffect(() => {
+    const inLocalstorage = localStorage.getItem('board');
+    if (inLocalstorage) {
+      setGame(JSON.parse(inLocalstorage));
+    }
+  }, []);
 
   const addPlayer = (player: string) => {
     const newPlayer = [...game.players, new Player(player, 0, false)];
-    setGame((newGame) => ({
-      ...newGame,
+    setGame((game) => ({
+      ...game,
       players: newPlayer,
     }));
   };
 
   const endSession = () => {
-    setGame(new Game([], ['', '', '', '', '', '', '', '', ''], '✗', false));
+    setGame(
+      new Game([], ['', '', '', '', '', '', '', '', ''], '✗', false, false)
+    );
+    localStorage.removeItem('board');
   };
 
   const restart = () => {
@@ -26,29 +36,33 @@ export const AppMain = () => {
     resetPlayers.forEach((player) => {
       player.hasWon = false;
     });
-    setGame((newGame) => ({
-      ...newGame,
+    setGame((game) => ({
+      ...game,
       squares: ['', '', '', '', '', '', '', '', ''],
-      gameOver: false,
+      hasWin: false,
+      hasDraw: false,
       players: resetPlayers,
     }));
   };
 
   const tagSquare = (index: number) => {
     const currentPlayer = game.currentPlayer === '✗' ? '⭕️' : '✗';
-    const newSquares = [...game.squares];
-    newSquares[index] = currentPlayer;
+    const updatedSquares = [...game.squares];
+    updatedSquares[index] = currentPlayer;
 
-    setGame((newGame) => ({
-      ...newGame,
+    setGame((game) => ({
+      ...game,
       currentPlayer: currentPlayer,
-      squares: newSquares,
+      squares: updatedSquares,
     }));
 
-    checkWin();
+    checkWin(updatedSquares);
+    checkDraw(updatedSquares);
+
+    localStorage.setItem('board', JSON.stringify(game));
   };
 
-  const checkWin = () => {
+  const checkWin = (squares: string[]) => {
     const winningCombinations = [
       [0, 1, 2],
       [3, 4, 5],
@@ -62,18 +76,18 @@ export const AppMain = () => {
 
     for (let i = 0; i < winningCombinations.length; i++) {
       const [a, b, c] = winningCombinations[i];
-      const squareA = game.squares[a];
-      const squareB = game.squares[b];
-      const squareC = game.squares[c];
+      const squareA = squares[a];
+      const squareB = squares[b];
+      const squareC = squares[c];
 
       if (squareA === '✗' && squareB === '✗' && squareC === '✗') {
         const updatedPlayers = [...game.players];
         updatedPlayers[0].points += 1;
         updatedPlayers[0].hasWon = true;
 
-        return setGame((newGame) => ({
-          ...newGame,
-          gameOver: true,
+        return setGame((game) => ({
+          ...game,
+          hasWin: true,
           players: updatedPlayers,
         }));
       } else if (squareA === '⭕️' && squareB === '⭕️' && squareC === '⭕️') {
@@ -81,14 +95,27 @@ export const AppMain = () => {
         updatedPlayers[1].points += 1;
         updatedPlayers[1].hasWon = true;
 
-        return setGame((newGame) => ({
-          ...newGame,
-          gameOver: true,
+        return setGame((prevGame) => ({
+          ...prevGame,
+          hasWin: true,
           players: updatedPlayers,
         }));
       }
     }
   };
+
+  const checkDraw = (squares: string[]) => {
+    if (squares.every((a) => a !== '')) {
+      return setGame((game) => ({
+        ...game,
+        hasDraw: true,
+      }));
+    } else {
+      return;
+    }
+  };
+
+  console.log(game);
 
   return (
     <main>
@@ -98,7 +125,8 @@ export const AppMain = () => {
           onRestart={restart}
           onEndSession={endSession}
           onTagSquare={tagSquare}
-          gameOver={game.gameOver}
+          hasDraw={game.hasDraw}
+          hasWin={game.hasWin}
           squares={game.squares}
           players={game.players}
           currentPlayer={game.currentPlayer}

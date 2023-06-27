@@ -4,7 +4,8 @@ interface SquareProps {
   squares: string[];
   players: Player[];
   currentPlayer: string;
-  gameOver: boolean;
+  hasWin: boolean;
+  hasDraw: boolean;
   onTagSquare: (index: number) => void;
 }
 
@@ -13,13 +14,14 @@ export const AppSquare = ({
   onTagSquare,
   players,
   currentPlayer,
-  gameOver,
+  hasWin,
+  hasDraw,
 }: SquareProps) => {
   const handleClick = (index: number) => {
-    if (squares[index] === '' && gameOver === false) {
-      onTagSquare(index);
+    if (squares[index] !== '' || hasWin) {
+      return;
     }
-    return;
+    onTagSquare(index);
   };
 
   const html = squares.map((square, index) => (
@@ -35,14 +37,17 @@ export const AppSquare = ({
   ));
   return (
     <>
-      {players[0].hasWon && <p>{players[0].name} has won the game 🥇 </p>}
-      {players[1].hasWon && <p>{players[1].name} has won the game 🥇 </p>}
-      {!gameOver && currentPlayer === '✗' && (
-        <p>its {players[0].name}'s' turn</p>
-      )}
-      {!gameOver && currentPlayer === '⭕️' && (
-        <p>its {players[1].name}'s' turn</p>
-      )}
+      <div className='info'>
+        {!hasWin && hasDraw && <p>Its a draw 👻</p>}
+        {players[0].hasWon && <p>{players[0].name} has won the game 🥇 </p>}
+        {players[1].hasWon && <p>{players[1].name} has won the game 🥇 </p>}
+        {!hasWin && !hasDraw && currentPlayer !== '✗' && (
+          <p>its {players[0].name}'s' ✗ turn</p>
+        )}
+        {!hasWin && !hasDraw && currentPlayer !== '⭕️' && (
+          <p>its {players[1].name}'s ⭕️ turn</p>
+        )}
+      </div>
       <div className='board'>{html}</div>
     </>
   );
