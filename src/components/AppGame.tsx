@@ -8,6 +8,7 @@ interface IGameProps {
   squares: string[];
   players: Player[];
   currentPlayer: string;
+  gameOver: boolean;
   onEndSession: (players: Player[]) => void;
   onTagSquare: (index: number) => void;
   onRestart: () => void;
@@ -17,6 +18,7 @@ export const AppGame = ({
   players,
   squares,
   currentPlayer,
+  gameOver,
   onEndSession,
   onTagSquare,
   onRestart,
@@ -38,13 +40,14 @@ export const AppGame = ({
     onRestart();
   };
   return (
-    <>
+    <div className='main-content'>
       {!showScore && (
         <AppSquare
           squares={squares}
           players={players}
           currentPlayer={currentPlayer}
           onTagSquare={tagSquare}
+          gameOver={gameOver}
         />
       )}
       {showScore && <AppScores players={players} />}
@@ -54,6 +57,6 @@ export const AppGame = ({
         onScoreboard={scoreBoard}
         players={players}
       />
-    </>
+    </div>
   );
 };

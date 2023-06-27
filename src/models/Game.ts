@@ -5,7 +5,6 @@ export class Game {
     public players: Player[],
     public squares: string[],
     public currentPlayer: string,
-    public gameOver: boolean,
-    public hasWin: boolean
+    public gameOver: boolean
   ) {}
 }

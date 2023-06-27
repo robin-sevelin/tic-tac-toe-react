@@ -1,3 +1,7 @@
 export class Player {
-  constructor(public name: string, public points: number) {}
+  constructor(
+    public name: string,
+    public points: number,
+    public hasWon: boolean
+  ) {}
 }
