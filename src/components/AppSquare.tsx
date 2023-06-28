@@ -38,7 +38,7 @@ export const AppSquare = ({
   return (
     <>
       <div className='info'>
-        {!hasWin && hasDraw && <p>Its a draw 👻</p>}
+        {!hasWin && hasDraw && <p>Its a draw!</p>}
         {players[0].hasWon && <p>{players[0].name} has won the game 🥇 </p>}
         {players[1].hasWon && <p>{players[1].name} has won the game 🥇 </p>}
         {!hasWin && !hasDraw && currentPlayer !== '✗' && (

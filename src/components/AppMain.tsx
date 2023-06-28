@@ -115,8 +115,6 @@ export const AppMain = () => {
     }
   };
 
-  console.log(game);
-
   return (
     <main>
       <AppPlayers onAddPlayer={addPlayer} players={game.players} />

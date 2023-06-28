@@ -1,7 +1,7 @@
 export const AppHeader = () => {
   return (
     <header>
-      <h1>welcome to tic tac toe</h1>
+      <h1>Tic Tac Toe</h1>
     </header>
   );
 };
