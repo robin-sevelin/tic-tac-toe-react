@@ -123,11 +123,7 @@ export const AppMain = () => {
           onRestart={restart}
           onEndSession={endSession}
           onTagSquare={tagSquare}
-          hasDraw={game.hasDraw}
-          hasWin={game.hasWin}
-          squares={game.squares}
-          players={game.players}
-          currentPlayer={game.currentPlayer}
+          {...game}
         />
       )}
     </main>

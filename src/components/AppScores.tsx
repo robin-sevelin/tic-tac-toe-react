@@ -1,8 +1,4 @@
-import { Player } from '../models/Player';
-
-interface IGameProps {
-  players: Player[];
-}
+import { IGameProps } from '../models/IGameProps';
 
 export const AppScores = ({ players }: IGameProps) => {
   const html = players.map((player, index) => (

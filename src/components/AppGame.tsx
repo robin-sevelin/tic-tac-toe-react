@@ -3,35 +3,16 @@ import { Player } from '../models/Player';
 import { AppButtons } from './AppButtons';
 import { AppScores } from './AppScores';
 import { AppSquare } from './AppSquare';
+import { IGameProps } from '../models/IGameProps';
 
-interface IGameProps {
-  squares: string[];
-  players: Player[];
-  currentPlayer: string;
-  hasWin: boolean;
-  hasDraw: boolean;
-  onEndSession: (players: Player[]) => void;
-  onTagSquare: (index: number) => void;
-  onRestart: () => void;
-}
-
-export const AppGame = ({
-  players,
-  squares,
-  currentPlayer,
-  hasWin,
-  hasDraw,
-  onEndSession,
-  onTagSquare,
-  onRestart,
-}: IGameProps) => {
+export const AppGame = (props: IGameProps) => {
   const [showScore, setShowScore] = useState(false);
   const tagSquare = (index: number) => {
-    onTagSquare(index);
+    props.onTagSquare(index);
   };
 
   const endSession = (players: Player[]) => {
-    onEndSession(players);
+    props.onEndSession(players);
   };
 
   const scoreBoard = () => {
@@ -39,26 +20,17 @@ export const AppGame = ({
   };
 
   const restart = () => {
-    onRestart();
+    props.onRestart();
   };
   return (
     <div className='main-content'>
-      {!showScore && (
-        <AppSquare
-          squares={squares}
-          players={players}
-          currentPlayer={currentPlayer}
-          onTagSquare={tagSquare}
-          hasWin={hasWin}
-          hasDraw={hasDraw}
-        />
-      )}
-      {showScore && <AppScores players={players} />}
+      {!showScore && <AppSquare {...props} onTagSquare={tagSquare} />}
+      {showScore && <AppScores {...props} />}
       <AppButtons
         onRestart={restart}
         onEndSession={endSession}
         onScoreboard={scoreBoard}
-        players={players}
+        players={props.players}
       />
     </div>
   );
