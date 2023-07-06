@@ -30,7 +30,7 @@ export const AppSquare = (props: IGameProps) => {
           <p>{props.players[1].name} has won the game 🥇 </p>
         )}
         {!props.hasWin && !props.hasDraw && props.currentPlayer !== '✗' && (
-          <p>its {props.players[0].name}'s' ✗ turn</p>
+          <p>its {props.players[0].name}'s ✗ turn</p>
         )}
         {!props.hasWin && !props.hasDraw && props.currentPlayer !== '⭕️' && (
           <p>its {props.players[1].name}'s ⭕️ turn</p>
