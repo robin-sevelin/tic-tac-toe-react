@@ -4,6 +4,7 @@ import { AppButtons } from './AppButtons';
 import { AppScores } from './AppScores';
 import { AppSquare } from './AppSquare';
 import { IGameProps } from '../models/IGameProps';
+import { AppMessages } from './AppMessages';
 
 export const AppGame = (props: IGameProps) => {
   const [showScore, setShowScore] = useState(false);
@@ -24,6 +25,7 @@ export const AppGame = (props: IGameProps) => {
   };
   return (
     <div className='main-content'>
+      {!showScore && <AppMessages {...props} onTagSquare={tagSquare} />}
       {!showScore && <AppSquare {...props} onTagSquare={tagSquare} />}
       {showScore && <AppScores {...props} />}
       <AppButtons
