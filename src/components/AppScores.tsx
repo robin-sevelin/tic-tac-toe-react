@@ -1,10 +1,14 @@
-import { IGameProps } from '../models/IGameProps';
+import { Player } from '../models/Player';
 
-export const AppScores = ({ players }: IGameProps) => {
+interface IProps {
+  players: Player[];
+}
+
+export const AppScores = (props: IProps) => {
   return (
     <div className='scores'>
       <h2>Here are the current scores</h2>
-      {players.map((player, index) => (
+      {props.players.map((player, index) => (
         <div key={index}>
           {player.name} {player.points} points
         </div>

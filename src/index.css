@@ -61,7 +61,7 @@ main {
   height: 400px;
 }
 
-.square {
+.square-container {
   background-color: white;
   border: 1px solid black;
   display: flex;
@@ -70,6 +70,15 @@ main {
   justify-content: center;
   font-size: 3rem;
   cursor: pointer;
+}
+
+.square {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* .square:hover {

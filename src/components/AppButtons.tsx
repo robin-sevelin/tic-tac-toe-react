@@ -1,28 +1,23 @@
 import { Player } from '../models/Player';
 
-interface IGameProps {
+interface IProps {
   players: Player[];
   onEndSession: (players: Player[]) => void;
   onScoreboard: () => void;
   onRestart: () => void;
 }
 
-export const AppButtons = ({
-  players,
-  onEndSession,
-  onScoreboard,
-  onRestart,
-}: IGameProps) => {
+export const AppButtons = (props: IProps) => {
   const handleEndsession = () => {
-    onEndSession(players);
+    props.onEndSession(props.players);
   };
 
   const handleScoreboard = () => {
-    onScoreboard();
+    props.onScoreboard();
   };
 
   const handleRestart = () => {
-    onRestart();
+    props.onRestart();
   };
   return (
     <div className='nav-buttons'>

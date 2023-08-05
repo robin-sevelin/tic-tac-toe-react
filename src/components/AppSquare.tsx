@@ -1,27 +1,22 @@
-import { IGameProps } from '../models/IGameProps';
+interface IProps {
+  square: string;
+  index: number;
+  hasWin: boolean;
+  onTagSquare: (index: number) => void;
+}
 
-export const AppSquare = (props: IGameProps) => {
+export const AppSquare = (props: IProps) => {
   const handleClick = (index: number) => {
-    if (props.squares[index] !== '' || props.hasWin) {
+    if (props.square[index] === '' || !props.hasWin) {
+      props.onTagSquare(index);
+    } else {
       return;
     }
-    props.onTagSquare(index);
   };
 
-  const html = props.squares.map((square, index) => (
-    <div
-      className='square'
-      onClick={() => {
-        handleClick(index);
-      }}
-      key={index}
-    >
-      {square}
-    </div>
-  ));
   return (
-    <>
-      <div className='board'>{html}</div>
-    </>
+    <div className='square' onClick={() => handleClick(props.index)}>
+      {props.square}
+    </div>
   );
 };
