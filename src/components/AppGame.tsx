@@ -43,13 +43,23 @@ export const AppGame = (props: IProps) => {
         <div className='board'>
           {props.squares.map((square, index) => (
             <div className='square-container' key={index}>
-              <AppSquare square={square} index={index} {...props} />
+              <AppSquare
+                square={square}
+                index={index}
+                {...props}
+                onTagSquare={tagSquare}
+              />
             </div>
           ))}
         </div>
       )}
       {showScore && <AppScores {...props} />}
-      <AppButtons {...props} onScoreboard={scoreBoard} />
+      <AppButtons
+        {...props}
+        onScoreboard={scoreBoard}
+        onEndSession={endSession}
+        onRestart={restart}
+      />
     </div>
   );
 };
