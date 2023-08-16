@@ -152,16 +152,17 @@ button:active {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
     position: relative;
+    gap: 1rem;
+    padding-bottom: 10px;
   }
 
   .board {
-    width: 300px;
+    width: 90%;
   }
 
   main {
-    width: 400px;
+    width: 90%;
   }
 
   .form-container {
