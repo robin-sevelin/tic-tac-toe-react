@@ -20,8 +20,6 @@ export const AppGame = (props: IProps) => {
   const [showScore, setShowScore] = useState(false);
 
   const tagSquare = (index: number) => {
-    console.log(index);
-
     props.onTagSquare(index);
   };
 

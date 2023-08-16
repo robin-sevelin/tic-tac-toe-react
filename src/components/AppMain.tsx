@@ -46,6 +46,9 @@ export const AppMain = () => {
   };
 
   const tagSquare = (index: number) => {
+    if (game.squares[index] !== '' || game.hasWin) {
+      return;
+    }
     const currentPlayer = game.currentPlayer === '✗' ? '⭕️' : '✗';
     const updatedSquares = [...game.squares];
     updatedSquares[index] = currentPlayer;

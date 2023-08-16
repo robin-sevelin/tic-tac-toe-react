@@ -7,11 +7,7 @@ interface IProps {
 
 export const AppSquare = (props: IProps) => {
   const handleClick = (index: number) => {
-    if (props.square[index] === '' || !props.hasWin) {
-      props.onTagSquare(index);
-    } else {
-      return;
-    }
+    props.onTagSquare(index);
   };
 
   return (
