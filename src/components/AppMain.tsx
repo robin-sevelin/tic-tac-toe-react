@@ -2,19 +2,13 @@ import { Game } from '../models/Game';
 import { AppPlayers } from './AppPlayers';
 import { AppGame } from './AppGame';
 import { Player } from '../models/Player';
-import { useEffect, useState } from 'react';
+import { useLocalStorage } from '../hooks/useStorage';
 
 export const AppMain = () => {
-  const [game, setGame] = useState<Game>(
+  const [game, setGame] = useLocalStorage<Game>(
+    'game',
     new Game([], ['', '', '', '', '', '', '', '', ''], '✗', false, false)
   );
-
-  useEffect(() => {
-    const inLocalstorage = localStorage.getItem('board');
-    if (inLocalstorage) {
-      setGame(JSON.parse(inLocalstorage));
-    }
-  }, []);
 
   const addPlayer = (player: string) => {
     const newPlayer = [...game.players, new Player(player, 0, false)];
@@ -28,7 +22,6 @@ export const AppMain = () => {
     setGame(
       new Game([], ['', '', '', '', '', '', '', '', ''], '✗', false, false)
     );
-    localStorage.removeItem('board');
   };
 
   const restart = () => {
@@ -46,7 +39,11 @@ export const AppMain = () => {
   };
 
   const tagSquare = (index: number) => {
-    if (game.squares[index] !== '' || game.hasWin) {
+    if (
+      game.squares[index] !== '' ||
+      game.players[0].hasWon ||
+      game.players[1].hasWon
+    ) {
       return;
     }
     const currentPlayer = game.currentPlayer === '✗' ? '⭕️' : '✗';
@@ -61,8 +58,6 @@ export const AppMain = () => {
 
     checkWin(updatedSquares);
     checkDraw(updatedSquares);
-
-    localStorage.setItem('board', JSON.stringify(game));
   };
 
   const checkWin = (squares: string[]) => {
