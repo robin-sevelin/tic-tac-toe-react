@@ -81,11 +81,11 @@ main {
   justify-content: center;
 }
 
-/* .square:hover {
+.square:hover {
   cursor: pointer;
   transition: 0.3s ease-in-out;
   background-color: lightgoldenrodyellow;
-} */
+}
 
 h3 {
   margin-bottom: 2rem;
@@ -130,7 +130,7 @@ button {
   width: 150px;
 }
 
-/* button:hover,
+button:hover,
 button:focus {
   background-color: #fb8332;
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
@@ -144,7 +144,7 @@ button:active {
   background-color: #c85000;
   box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
   transform: translateY(0);
-} */
+}
 
 @media only screen and (max-width: 600px) {
   .nav-buttons {
