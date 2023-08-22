@@ -4,19 +4,9 @@ import { AppButtons } from './AppButtons';
 import { AppScores } from './AppScores';
 import { AppSquare } from './AppSquare';
 import { AppMessages } from './AppMessages';
+import { IGameProps } from '../models/IGameProps';
 
-interface IProps {
-  players: Player[];
-  currentPlayer: string;
-  hasWin: boolean;
-  hasDraw: boolean;
-  squares: string[];
-  onTagSquare: (index: number) => void;
-  onRestart: () => void;
-  onEndSession: (players: Player[]) => void;
-}
-
-export const AppGame = (props: IProps) => {
+export const AppGame = (props: IGameProps) => {
   const [showScore, setShowScore] = useState(false);
 
   const tagSquare = (index: number) => {
