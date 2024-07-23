@@ -23,20 +23,29 @@ export const AppPlayers = ({ players, onAddPlayer }: IPlayerProps) => {
     <div className='form-container'>
       {players.length === 0 && (
         <form onSubmit={handleSubmit}>
-          <label htmlFor='input'>Player ✗ name</label>
+          <div className='name-input'>
+            {' '}
+            <label htmlFor='input'>Player ✗ name</label>
+          </div>
           <input type='text' id='input' onChange={handleChange} />
-          <button className='submit' disabled={userInput === ''}>
-            Submit
-          </button>
+          <div className='submit-btn'>
+            <button className='submit' disabled={userInput === ''}>
+              Submit
+            </button>
+          </div>
         </form>
       )}
       {players.length === 1 && (
         <form onSubmit={handleSubmit}>
-          <label htmlFor='input'>Player ⭕️ name</label>
+          <div className='name-input'>
+            <label htmlFor='input'>Player ⭕️ name</label>
+          </div>
           <input type='text' id='input' onChange={handleChange} />
-          <button className='submit' disabled={userInput === ''}>
-            Submit
-          </button>
+          <div className='submit-btn'>
+            <button className='submit' disabled={userInput === ''}>
+              Submit
+            </button>
+          </div>
         </form>
       )}
     </div>
