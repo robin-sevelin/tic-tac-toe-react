@@ -1,10 +1,7 @@
 import { winningCombinations } from '../constants/constants';
 import { Game } from '../models/Game';
 
-export const checkWin = (
-  squares: string[],
-  setGame: (game: Game | ((prevGame: Game) => Game)) => void
-) => {
+export const checkWin = (squares: string[], game: Game) => {
   for (let i = 0; i < winningCombinations.length; i++) {
     const [a, b, c] = winningCombinations[i];
     const squareA = squares[a];
@@ -12,31 +9,25 @@ export const checkWin = (
     const squareC = squares[c];
 
     if (squareA === '✗' && squareB === '✗' && squareC === '✗') {
-      setGame((prevGame) => {
-        const updatedPlayers = [...prevGame.players];
-        updatedPlayers[0].points += 1;
-        updatedPlayers[0].hasWon = true;
+      const updatedPlayers = [...game.players];
+      updatedPlayers[0].points += 1;
+      updatedPlayers[0].hasWon = true;
 
-        return {
-          ...prevGame,
-          hasWin: true,
-          players: updatedPlayers,
-        };
-      });
-      return;
+      return {
+        ...game,
+        hasWin: true,
+        players: updatedPlayers,
+      };
     } else if (squareA === '⭕️' && squareB === '⭕️' && squareC === '⭕️') {
-      setGame((prevGame) => {
-        const updatedPlayers = [...prevGame.players];
-        updatedPlayers[1].points += 1;
-        updatedPlayers[1].hasWon = true;
+      const updatedPlayers = [...game.players];
+      updatedPlayers[1].points += 1;
+      updatedPlayers[1].hasWon = true;
 
-        return {
-          ...prevGame,
-          hasWin: true,
-          players: updatedPlayers,
-        };
-      });
-      return;
+      return {
+        ...game,
+        hasWin: true,
+        players: updatedPlayers,
+      };
     }
   }
 };

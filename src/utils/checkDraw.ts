@@ -1,14 +1,11 @@
 import { Game } from '../models/Game';
 
-export const checkDraw = (
-  squares: string[],
-  setGame: (game: Game | ((prevGame: Game) => Game)) => void
-) => {
+export const checkDraw = (squares: string[], state: Game) => {
   if (squares.every((a) => a !== '')) {
-    return setGame((game) => ({
-      ...game,
+    return {
+      ...state,
       hasDraw: true,
-    }));
+    };
   } else {
     return;
   }

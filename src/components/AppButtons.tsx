@@ -1,23 +1,23 @@
-import { Player } from '../models/Player';
+import { useContext } from 'react';
+import { GameContext } from '../contexts/gameContext';
+import { Actions } from '../reducers/GameReducer';
 
 interface IProps {
-  players: Player[];
-  onEndSession: (players: Player[]) => void;
   onScoreboard: () => void;
-  onRestart: () => void;
 }
 
-export const AppButtons = (props: IProps) => {
+export const AppButtons = ({ onScoreboard }: IProps) => {
+  const { game, dispatch } = useContext(GameContext);
   const handleEndsession = () => {
-    props.onEndSession(props.players);
+    dispatch({ type: Actions.END_SESSION, payload: JSON.stringify(game) });
   };
 
   const handleScoreboard = () => {
-    props.onScoreboard();
+    onScoreboard();
   };
 
   const handleRestart = () => {
-    props.onRestart();
+    dispatch({ type: Actions.RESTART, payload: JSON.stringify(game) });
   };
   return (
     <div className='nav-buttons'>

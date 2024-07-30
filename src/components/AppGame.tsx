@@ -1,53 +1,55 @@
-import { useState } from 'react';
-import { Player } from '../models/Player';
+import { useContext, useState } from 'react';
 import { AppButtons } from './AppButtons';
 import { AppScores } from './AppScores';
 import { AppSquare } from './AppSquare';
 import { AppMessages } from './AppMessages';
-import { IGameProps } from '../models/IGameProps';
+import { GameContext } from '../contexts/gameContext';
+import { Actions } from '../reducers/GameReducer';
 
-export const AppGame = (props: IGameProps) => {
+export const AppGame = () => {
+  const { game, dispatch } = useContext(GameContext);
   const [showScore, setShowScore] = useState(false);
 
   const tagSquare = (index: number) => {
-    props.onTagSquare(index);
+    const object = { game, index };
+    dispatch({
+      type: Actions.TAG_SQUARE,
+      payload: JSON.stringify(object),
+    });
+
+    checkWin();
+    checkDraw();
   };
 
-  const endSession = (players: Player[]) => {
-    props.onEndSession(players);
+  const checkWin = () => {
+    dispatch({ type: Actions.CHECK_WIN, payload: JSON.stringify(game) });
+  };
+
+  const checkDraw = () => {
+    dispatch({ type: Actions.CHECK_DRAW, payload: JSON.stringify(game) });
   };
 
   const scoreBoard = () => {
     setShowScore(!showScore);
   };
-
-  const restart = () => {
-    props.onRestart();
-  };
   return (
     <div className='main-content'>
-      {!showScore && <AppMessages {...props} />}
+      {!showScore && <AppMessages />}
       {!showScore && (
         <div className='board'>
-          {props.squares.map((square, index) => (
+          {game?.squares?.map((square, index) => (
             <div className='square-container' key={index}>
               <AppSquare
                 square={square}
                 index={index}
-                {...props}
                 onTagSquare={tagSquare}
               />
             </div>
           ))}
         </div>
       )}
-      {showScore && <AppScores {...props} />}
-      <AppButtons
-        {...props}
-        onScoreboard={scoreBoard}
-        onEndSession={endSession}
-        onRestart={restart}
-      />
+      {showScore && <AppScores />}
+      <AppButtons onScoreboard={scoreBoard} />
     </div>
   );
 };

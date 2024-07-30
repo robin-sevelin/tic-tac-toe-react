@@ -1,18 +1,17 @@
 interface IProps {
   square: string;
   index: number;
-  hasWin: boolean;
   onTagSquare: (index: number) => void;
 }
 
-export const AppSquare = (props: IProps) => {
+export const AppSquare = ({ onTagSquare, index, square }: IProps) => {
   const handleClick = (index: number) => {
-    props.onTagSquare(index);
+    onTagSquare(index);
   };
 
   return (
-    <div className='square' onClick={() => handleClick(props.index)}>
-      {props.square}
+    <div className='square' onClick={() => handleClick(index)}>
+      {square}
     </div>
   );
 };

@@ -1,10 +1,12 @@
-import { IGameProps } from '../models/IGameProps';
+import { useContext } from 'react';
+import { GameContext } from '../contexts/gameContext';
 
-export const AppScores = (props: IGameProps) => {
+export const AppScores = () => {
+  const { game } = useContext(GameContext);
   return (
     <div className='scores'>
       <h2>Here are the current scores</h2>
-      {props.players.map((player, index) => (
+      {game.players.map((player, index) => (
         <div key={index}>
           {player.name} {player.points} points
         </div>
