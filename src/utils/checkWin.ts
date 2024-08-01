@@ -7,9 +7,11 @@ export const checkWin = (squares: string[], game: Game) => {
     const squareA = squares[a];
     const squareB = squares[b];
     const squareC = squares[c];
+    console.log(game.players);
 
     if (squareA === '✗' && squareB === '✗' && squareC === '✗') {
       const updatedPlayers = [...game.players];
+
       updatedPlayers[0].points += 1;
       updatedPlayers[0].hasWon = true;
 

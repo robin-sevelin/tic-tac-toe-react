@@ -5,6 +5,8 @@ import { AppSquare } from './AppSquare';
 import { AppMessages } from './AppMessages';
 import { GameContext } from '../contexts/gameContext';
 import { Actions } from '../reducers/GameReducer';
+import { checkDraw } from '../utils/checkDraw';
+import { checkWin } from '../utils/checkWin';
 
 export const AppGame = () => {
   const { game, dispatch } = useContext(GameContext);
@@ -17,16 +19,8 @@ export const AppGame = () => {
       payload: JSON.stringify(object),
     });
 
-    checkWin();
-    checkDraw();
-  };
-
-  const checkWin = () => {
-    dispatch({ type: Actions.CHECK_WIN, payload: JSON.stringify(game) });
-  };
-
-  const checkDraw = () => {
-    dispatch({ type: Actions.CHECK_DRAW, payload: JSON.stringify(game) });
+    checkWin(game.squares, game);
+    checkDraw(game.squares, game);
   };
 
   const scoreBoard = () => {

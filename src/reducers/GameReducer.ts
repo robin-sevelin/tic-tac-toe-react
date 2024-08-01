@@ -1,7 +1,9 @@
-import { emptyGame, winningCombinations } from '../constants/constants';
+import { emptyGame } from '../constants/constants';
 import { Game } from '../models/Game';
+import { Player } from '../models/Player';
 
 export enum Actions {
+  ADD_PLAYER,
   END_SESSION,
   RESTART,
   TAG_SQUARE,
@@ -16,6 +18,13 @@ export interface GameAction {
 
 export const GameReducer = (game: Game, action: GameAction) => {
   switch (action.type) {
+    case Actions.ADD_PLAYER: {
+      const newPlayer = [...game.players, new Player(action.payload, 0, false)];
+      return {
+        ...game,
+        players: newPlayer,
+      };
+    }
     case Actions.END_SESSION: {
       const resetGame = emptyGame;
       return resetGame;
@@ -56,55 +65,8 @@ export const GameReducer = (game: Game, action: GameAction) => {
       };
       return updatedGame;
     }
-
-    case Actions.CHECK_DRAW: {
-      const parsedGame = JSON.parse(action.payload) as Game;
-
-      if (parsedGame.squares.every((a) => a !== '')) {
-        return {
-          ...game,
-          hasDraw: true,
-        };
-      } else {
-        return game;
-      }
-    }
-
-    case Actions.CHECK_WIN: {
-      const parsedGame = JSON.parse(action.payload) as Game;
-
-      for (let i = 0; i < winningCombinations.length; i++) {
-        const [a, b, c] = winningCombinations[i];
-        const squareA = parsedGame.squares[a];
-        const squareB = parsedGame.squares[b];
-        const squareC = parsedGame.squares[c];
-
-        if (squareA === '✗' && squareB === '✗' && squareC === '✗') {
-          const updatedPlayers = [...game.players];
-          updatedPlayers[0].points += 1;
-          updatedPlayers[0].hasWon = true;
-
-          return {
-            ...game,
-            hasWin: true,
-            players: updatedPlayers,
-          };
-        } else if (
-          squareA === '⭕️' &&
-          squareB === '⭕️' &&
-          squareC === '⭕️'
-        ) {
-          const updatedPlayers = [...game.players];
-          updatedPlayers[1].points += 1;
-          updatedPlayers[1].hasWon = true;
-
-          return {
-            ...game,
-            hasWin: true,
-            players: updatedPlayers,
-          };
-        }
-      }
+    default: {
+      return game;
     }
   }
 };

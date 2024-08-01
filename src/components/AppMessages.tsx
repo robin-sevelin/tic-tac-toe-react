@@ -5,7 +5,7 @@ export const AppMessages = () => {
   const { game } = useContext(GameContext);
   return (
     <div className='info'>
-      {/* {!game.hasWin && game.hasDraw && <p>Its a draw!</p>}
+      {!game.hasWin && game.hasDraw && <p>Its a draw!</p>}
       {game.players[0].hasWon && (
         <p>{game.players[0].name} has won the game 🥇 </p>
       )}
@@ -17,7 +17,7 @@ export const AppMessages = () => {
       )}
       {!game.hasWin && !game.hasDraw && game.currentPlayer !== '⭕️' && (
         <p>its {game.players[1].name}'s ⭕️ turn</p>
-      )} */}
+      )}
     </div>
   );
 };

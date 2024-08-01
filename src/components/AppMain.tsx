@@ -1,19 +1,15 @@
-import { Game } from '../models/Game';
 import { AppPlayers } from './AppPlayers';
 import { AppGame } from './AppGame';
-import { Player } from '../models/Player';
-import { useLocalStorage } from '../hooks/useStorage';
-import { emptyGame } from '../constants/constants';
+import { useContext } from 'react';
+import { GameContext } from '../contexts/gameContext';
+import { Actions } from '../reducers/GameReducer';
 
 export const AppMain = () => {
-  const [game, setGame] = useLocalStorage<Game>('game', emptyGame);
+  const { game, dispatch } = useContext(GameContext);
+  // const [game, setGame] = useLocalStorage<Game>('game', emptyGame);
 
   const addPlayer = (player: string) => {
-    const newPlayer = [...game.players, new Player(player, 0, false)];
-    setGame((game) => ({
-      ...game,
-      players: newPlayer,
-    }));
+    dispatch({ type: Actions.ADD_PLAYER, payload: player });
   };
 
   return (
